@@ -1,8 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
 
-## Getting Started
+# Assessment Form Frontend
 
-First, run the development server:
+## Project Overview
+
+This is a Next.js frontend application for managing and submitting assessment forms. It features a responsive UI, grid-based cards, and integration with APIs. The project is designed for scalability and ease of use in interview or evaluation scenarios.
+
+## Installation & Local Development
+
+### Prerequisites
+- Node.js (v18 or newer recommended)
+- npm, yarn, pnpm, or bun
+
+### Environment Variables
+Create a `.env` file in the project root. Example:
+
+```env
+NEXT_PUBLIC_BASE_URL=http://localhost:5000/api
+```
+
+### Install Dependencies
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+### Run Locally
 
 ```bash
 npm run dev
@@ -14,27 +42,24 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Running with Docker
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Build Docker Image
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+```bash
+docker build -t assessment-form-frontend .
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Run Docker Container
 
-## Learn More
+```bash
+docker run -p 3000:3000 --env NEXT_PUBLIC_BASE_URL=http://localhost:5000/api assessment-form-frontend
+```
 
-To learn more about Next.js, take a look at the following resources:
+The app will be available at [http://localhost:3000](http://localhost:3000).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+For more details, see the Next.js documentation: [https://nextjs.org/docs](https://nextjs.org/docs)
