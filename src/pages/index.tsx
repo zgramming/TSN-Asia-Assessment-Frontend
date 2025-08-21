@@ -1,6 +1,5 @@
 import { AssessmentRepository } from "@/repository/assessment.repository";
 import {
-  Badge,
   Button,
   Card,
   Group,
@@ -9,14 +8,20 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function Home() {
   const { push } = useRouter();
-  const { assessments, isLoading } = AssessmentRepository.hooks.Get();
+  const { assessments, isLoading, error } = AssessmentRepository.hooks.Get();
 
-  console.log({ assessments, isLoading });
+  if (error) {
+    return (
+      <Stack justify="center" align="center" className="min-h-screen">
+        <Text color="red">Error loading assessments: {error.message}</Text>
+        <Button onClick={() => push("/")}>Go Back</Button>
+      </Stack>
+    );
+  }
 
   return (
     <>

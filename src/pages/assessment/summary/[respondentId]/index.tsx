@@ -1,21 +1,34 @@
 import { AssessmentRepository } from "@/repository/assessment.repository";
 import {
   Avatar,
+  Button,
   Card,
   Divider,
   Grid,
   Group,
   LoadingOverlay,
   Stack,
+  Text,
 } from "@mantine/core";
 import { useRouter } from "next/router";
 
 export default function ResultPage() {
-  const { query } = useRouter();
+  const { query, push } = useRouter();
   const { respondentId } = query;
-  const { summary, isLoading } = AssessmentRepository.hooks.GetSummary(
+  const { summary, isLoading, error } = AssessmentRepository.hooks.GetSummary(
     respondentId as string | undefined
   );
+
+  if (error) {
+    return (
+      <Stack justify="center" align="center" className="min-h-screen">
+        <Text color="red">
+          Error loading assessment summary: {error.message}
+        </Text>
+        <Button onClick={() => push("/")}>Go Back</Button>
+      </Stack>
+    );
+  }
 
   return (
     <>

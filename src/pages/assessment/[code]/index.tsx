@@ -4,7 +4,6 @@ import {
   Card,
   Chip,
   ChipGroup,
-  Container,
   Divider,
   Group,
   LoadingOverlay,
@@ -19,9 +18,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function AssessmentDetailPage() {
-  const { query, replace } = useRouter();
+  const { query, replace, push } = useRouter();
   const { code } = query;
-  const { assessment, isLoading } = AssessmentRepository.hooks.GetDetail(
+  const { assessment, isLoading, error } = AssessmentRepository.hooks.GetDetail(
     code as string | undefined
   );
 
@@ -85,6 +84,15 @@ export default function AssessmentDetailPage() {
   const onAnswerChange = (questionId: string, optionId: string) => {
     setAnswer((prev) => ({ ...prev, [questionId]: optionId }));
   };
+
+  if (error) {
+    return (
+      <Stack justify="center" align="center" className="min-h-screen">
+        <Text color="red">Error loading assessment: {error.message}</Text>
+        <Button onClick={() => push("/")}>Go Back</Button>
+      </Stack>
+    );
+  }
 
   return (
     <form onSubmit={form.onSubmit(onSubmit)}>

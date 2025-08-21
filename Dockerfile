@@ -6,16 +6,13 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
-COPY yarn.lock ./
-COPY pnpm-lock.yaml ./
-COPY bun.lockb ./
-RUN npm install || yarn install || pnpm install || bun install
+RUN npm install
 
 # Copy rest of the app
 COPY . .
 
 # Build Next.js app
-RUN npm run build || yarn build || pnpm build || bun build
+RUN npm run build 
 
 # Expose port
 EXPOSE 3000

@@ -5,6 +5,8 @@ import { AssessmentCreateDto } from "@/interfaces/dto/assessment-create.dto";
 import { baseURL } from "@/utils/constant";
 import { useQuery } from "@tanstack/react-query";
 
+const timeout = 10000;
+
 const url = {
   base: `${baseURL}/assessments`,
 };
@@ -20,7 +22,9 @@ const hooks = {
     } = useQuery<IAssessment[]>({
       queryKey: ["assessments"],
       queryFn: async () => {
-        const response = await fetch(url.base);
+        const response = await fetch(url.base, {
+          signal: AbortSignal.timeout(timeout),
+        });
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -46,7 +50,9 @@ const hooks = {
     } = useQuery<IAssessmentDetail>({
       queryKey: ["assessments", code],
       queryFn: async () => {
-        const response = await fetch(`${url.base}/${code}`);
+        const response = await fetch(`${url.base}/${code}`, {
+          signal: AbortSignal.timeout(timeout),
+        });
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -73,7 +79,9 @@ const hooks = {
     } = useQuery<IAssessmentSummary>({
       queryKey: ["assessments", "summary", respondentId],
       queryFn: async () => {
-        const response = await fetch(`${url.base}/summary/${respondentId}`);
+        const response = await fetch(`${url.base}/summary/${respondentId}`, {
+          signal: AbortSignal.timeout(timeout),
+        });
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -114,6 +122,7 @@ const api = {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
+      signal: AbortSignal.timeout(timeout),
     });
     const json = await result.json();
     if (!result.ok) {
