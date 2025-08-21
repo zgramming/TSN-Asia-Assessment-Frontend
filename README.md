@@ -63,7 +63,7 @@ docker build -t assessment-form-frontend .
 ```
 
 ### Run Docker Container
-```bash
+```bash 
 docker run -p 3000:3000 --env NEXT_PUBLIC_BASE_URL=http://localhost:5000/api assessment-form-frontend
 ```
 The app will be available at [http://localhost:3000](http://localhost:3000).
